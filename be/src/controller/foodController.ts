@@ -11,9 +11,9 @@ export const addFood = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Name and description are required' });
     }
 
-    // Create new user
+    // Add Food
            const food = await Food.create({ name, description,img});
-           return res.status(201).json({ message: "User registered successfully", food: food});
+           return res.status(201).json({ message: "Food Added Successfully", food: food});
   } catch (error) {
     // Handle errors that may occur during the execution of the code
     console.error(error);
