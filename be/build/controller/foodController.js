@@ -1,22 +1,30 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addFood = void 0;
-const Food_1 = require("./../model/Food");
+exports.getFood = exports.addFood = void 0;
+const Food_1 = require("../model/Food");
 const addFood = async (req, res) => {
+    const { name, description, price, image } = req.body;
+    if (!name || !description || !price || !image) {
+        return res.status(400).json({ error: "All fields are required." });
+    }
     try {
-        const { name, description, img } = req.body;
-        // Add validation to ensure that the request body contains the required properties
-        if (!name || !description) {
-            return res.status(400).json({ error: 'Name and description are required' });
-        }
-        // Create new user
-        const food = await Food_1.Food.create({ name, description, img });
-        return res.status(201).json({ message: "User registered successfully", food: food });
+        const newFood = await Food_1.Food.create({ name, description, price, image });
+        res.json({ message: "Food added successfully", food: newFood });
     }
     catch (error) {
-        // Handle errors that may occur during the execution of the code
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.error("Error inserting food:", error);
+        res.status(500).json({ error: "Database error" });
     }
 };
 exports.addFood = addFood;
+const getFood = async (req, res) => {
+    try {
+        const food = await Food_1.Food.findAll();
+        res.status(200).json(food);
+    }
+    catch (e) {
+        console.error("Error fetching food:", e);
+        res.status(500).json({ error: "Database error" });
+    }
+};
+exports.getFood = getFood;

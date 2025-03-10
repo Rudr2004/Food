@@ -17,7 +17,12 @@ exports.Food = db_1.sequelize.define("food", {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
     },
-    img: {
+    image: {
         type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    },
+    price: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: false
     }
 });

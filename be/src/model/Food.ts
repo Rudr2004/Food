@@ -18,7 +18,13 @@ export const Food = sequelize.define("food",{
         allowNull:false
     },
 
-    img:{
+    image:{
         type:DataTypes.STRING,
+        allowNull: false
+    },
+
+    price:{
+        type:DataTypes.INTEGER,
+        allowNull: false
     }
 })

@@ -7,4 +7,5 @@ const express_1 = __importDefault(require("express"));
 const foodController_1 = require("../controller/foodController");
 const foodRoute = express_1.default.Router();
 foodRoute.post("/addFood", foodController_1.addFood);
+foodRoute.get("/getFoods", foodController_1.getFood);
 exports.default = foodRoute;

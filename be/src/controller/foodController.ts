@@ -1,22 +1,27 @@
-import { Food } from './../model/Food';
 import { Request, Response } from "express";
-
+import { Food } from "../model/Food";
 
 export const addFood = async (req: Request, res: Response) => {
-  try {
-    const { name, description,img } = req.body;
-
-    // Add validation to ensure that the request body contains the required properties
-    if (!name || !description) {
-      return res.status(400).json({ error: 'Name and description are required' });
+    const { name, description, price, image } = req.body;  
+    if (!name || !description || !price || !image) {
+        return res.status(400).json({ error: "All fields are required." });
     }
 
-    // Add Food
-           const food = await Food.create({ name, description,img});
-           return res.status(201).json({ message: "Food Added Successfully", food: food});
-  } catch (error) {
-    // Handle errors that may occur during the execution of the code
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+    try {
+        const newFood = await Food.create({ name, description, price, image });
+        res.json({ message: "Food added successfully", food: newFood });
+    } catch (error) {
+        console.error("Error inserting food:", error);
+        res.status(500).json({ error: "Database error" });
+    }
 };
+
+export const getFood = async(req:Request, res: Response) =>{
+    try{
+        const food = await Food.findAll()
+        res.status(200).json(food)
+    }catch(e){
+        console.error("Error fetching food:", e);
+        res.status(500).json({ error: "Database error" });
+    }
+}
