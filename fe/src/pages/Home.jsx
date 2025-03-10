@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useCart } from "../context/CartContext"; // Import cart context
+import toast from "react-hot-toast";
 
 const Home = () => {
     const [foods, setFoods] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { addToCart } = useCart();
 
     useEffect(() => {
         const fetchFoods = async () => {
             try {
                 const response = await axios.get("http://localhost:2000/api/food/getFoods");
-                setFoods(response.data);
-                setLoading(false);
+                if (response.status === 200) {
+                    setFoods(response.data);
+                    setLoading(false);
+                } else {
+                    setError(`Failed to load food items: ${response.statusText}`);
+                    setLoading(false);
+                }
             } catch (err) {
-                setError("Failed to load food items.", err);
+                setError(`Failed to load food items: ${err.message}`);
                 setLoading(false);
             }
         };
 
         fetchFoods();
-    }, []);
+    }, [addToCart]);
 
     if (loading) return <p className="text-center mt-10 text-lg text-gray-600">Loading...</p>;
     if (error) return <p className="text-center mt-10 text-lg text-red-500">{error}</p>;
@@ -39,6 +47,15 @@ const Home = () => {
                                 <h3 className="text-xl font-semibold text-gray-700">{food.name}</h3>
                                 <p className="text-gray-600 mt-2">{food.description}</p>
                                 <p className="mt-3 text-green-500 font-bold">₹{food.price}</p>
+                                <button
+                                    onClick={() => {
+                                        addToCart(food);
+                                        toast.success("Added");
+                                    }}
+                                    className="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+                                >
+                                    Add to Cart
+                                </button>
                             </div>
                         </div>
                     ))}
