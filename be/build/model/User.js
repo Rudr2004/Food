@@ -14,12 +14,7 @@ exports.User = db_1.sequelize.define("user", {
         allowNull: false
     },
     email: {
-        type: sequelize_1.DataTypes.STRING,
-        unique: true,
-        allowNull: false,
-        validate: {
-            isEmail: true
-        }
+        type: sequelize_1.DataTypes.STRING
     },
     password: {
         type: sequelize_1.DataTypes.STRING,

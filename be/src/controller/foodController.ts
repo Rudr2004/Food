@@ -2,13 +2,13 @@ import { Request, Response } from "express";
 import { Food } from "../model/Food";
 
 export const addFood = async (req: Request, res: Response) => {
-    const { name, description, price, image } = req.body;  
-    if (!name || !description || !price || !image) {
+    const { name, description, price, image, category } = req.body;  
+    if (!name || !description || !price || !image || !category) {
         return res.status(400).json({ error: "All fields are required." });
     }
 
     try {
-        const newFood = await Food.create({ name, description, price, image });
+        const newFood = await Food.create({ name, description, price, image, category });
         res.json({ message: "Food added successfully", food: newFood });
     } catch (error) {
         console.error("Error inserting food:", error);

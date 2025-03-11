@@ -10,7 +10,8 @@ const Navbar = () => {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        setIsLoggedIn(!!token); // Convert token existence to boolean
+        setIsLoggedIn(!!token);
+
         const cartItems = localStorage.getItem("cart");
         if (cartItems) {
             setCartCount(JSON.parse(cartItems).length);
@@ -27,6 +28,17 @@ const Navbar = () => {
         return () => clearInterval(intervalId);
     }, []);
 
+    // Update cart count when an item is removed after successful payment
+    useEffect(() => {
+        const updateCartCount = () => {
+            const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+            setCartCount(cartItems.length);
+        };
+
+        window.addEventListener("cartUpdated", updateCartCount);
+        return () => window.removeEventListener("cartUpdated", updateCartCount);
+    }, []);
+
     const handleLogout = () => {
         localStorage.removeItem("token");
         setIsLoggedIn(false);
@@ -39,12 +51,10 @@ const Navbar = () => {
 
     return (
         <nav className="bg-white shadow-md p-4 flex items-center justify-between">
-            {/* Logo */}
             <Link to="/" className="text-red-500 text-3xl font-bold">
                 Zomato
             </Link>
 
-            {/* Search Bar */}
             <div className="flex-grow mx-4 relative">
                 <input
                     type="text"
@@ -53,7 +63,6 @@ const Navbar = () => {
                 />
             </div>
 
-            {/* Auth Buttons and Cart for Large Devices */}
             <div className="hidden md:flex">
                 <Link to="/cart" className="bg-red-500 mx-4 text-white px-4 py-2 cursor-pointer rounded-md hover:bg-red-600 transition relative">
                     {cartCount > 0 && (
@@ -83,31 +92,24 @@ const Navbar = () => {
                 )}
             </div>
 
-            {/* Modal Toggle Button for Small and Extra Small Devices */}
             <button
                 className="md:hidden bg-red-500 text-white px-4 py-2 cursor-pointer rounded-md hover:bg-red-600 transition"
                 onClick={handleModalToggle}
             >
-                Menu
+                <HiMenu />
             </button>
 
-            {/* Glassmorphic Modal for Mobile Menu */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-white/30 backdrop-blur-lg flex items-center justify-center z-50">
                     <div className="bg-white/80 w-3/4 max-w-sm rounded-lg shadow-lg p-6 relative">
-                        {/* Close Button */}
                         <button className="absolute top-4 right-4 text-2xl text-red-500" onClick={() => setIsModalOpen(false)}>
                             <HiX />
                         </button>
 
-                        {/* Menu Links */}
                         <div className="flex flex-col items-center space-y-4 mt-6">
                             <Link to="/cart" className="bg-red-500 text-white px-4 py-2 mx-3 cursor-pointer rounded-md hover:bg-red-600 transition relative">
                                 {cartCount > 0 && (
-                                    <span
-                                        className="absolute top-[-10px] right-[-10px] bg-red-600 text-white px-2 py-1 rounded-full text-xs font-bold"
-                                        style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)" }}
-                                    >
+                                    <span className="absolute top-[-10px] right-[-10px] bg-red-600 text-white px-2 py-1 rounded-full text-xs font-bold">
                                         {cartCount}
                                     </span>
                                 )}

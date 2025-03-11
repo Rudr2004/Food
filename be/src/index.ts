@@ -4,6 +4,7 @@ import { sequelize, syncDB } from "./db/db";
 import cors from "cors";
 import router from "./routes/route";
 import foodRoute from "./routes/foodRoute";
+import paymentRouter from "./routes/payment";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 
 app.use("/api/user", router);
 app.use("/api/food",foodRoute)
+app.use("/api",paymentRouter)
 
 // Ensure the database is connected before starting the server
 sequelize.authenticate()

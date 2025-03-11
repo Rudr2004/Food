@@ -8,6 +8,7 @@ const Add = () => {
         name: "",
         description: "",
         price: "",
+        category: "",
         image: null,
         uploading: false, // Track upload progress
     });
@@ -98,6 +99,17 @@ const Add = () => {
                         className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
                         required
                     ></textarea>
+                </div>
+                <div>
+                    <label className="block text-gray-600">Category</label>
+                    <input
+                        type="text"
+                        name="category"
+                        value={foodData.category}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
+                        required
+                    />
                 </div>
                 <div>
                     <label className="block text-gray-600">Price</label>

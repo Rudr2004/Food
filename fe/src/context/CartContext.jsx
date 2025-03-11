@@ -23,6 +23,18 @@ export const CartProvider = ({ children }) => {
     setCartCount(cart.reduce((acc, item) => acc + item.quantity, 0));
   }, [cart]);
 
+  // Listen for the 'cartUpdated' event and update the cart state
+  useEffect(() => {
+    const handleCartUpdate = () => {
+      const updatedCart = JSON.parse(localStorage.getItem("cart")) || [];
+      setCart(updatedCart);
+      setCartCount(updatedCart.reduce((acc, item) => acc + item.quantity, 0));
+    };
+
+    window.addEventListener("cartUpdated", handleCartUpdate);
+    return () => window.removeEventListener("cartUpdated", handleCartUpdate);
+  }, []);
+
   const addToCart = (product) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === product.id);

@@ -3,12 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getFood = exports.addFood = void 0;
 const Food_1 = require("../model/Food");
 const addFood = async (req, res) => {
-    const { name, description, price, image } = req.body;
-    if (!name || !description || !price || !image) {
+    const { name, description, price, image, category } = req.body;
+    if (!name || !description || !price || !image || !category) {
         return res.status(400).json({ error: "All fields are required." });
     }
     try {
-        const newFood = await Food_1.Food.create({ name, description, price, image });
+        const newFood = await Food_1.Food.create({ name, description, price, image, category });
         res.json({ message: "Food added successfully", food: newFood });
     }
     catch (error) {
