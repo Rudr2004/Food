@@ -9,7 +9,7 @@ import paymentRouter from "./routes/payment";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 2000;
+const port = process.env.PORT || 2000;
 
 app.use(cors({
     origin: "*"
@@ -26,8 +26,8 @@ sequelize.authenticate()
     .then(async () => {
         console.log("Connected to DB");
         await syncDB(); 
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
+        app.listen(port, () => {
+            console.log(`Server is running on port ${port}`);
         });
     })
     .catch((e) => {
