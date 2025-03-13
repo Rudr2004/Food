@@ -4,7 +4,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
-const stripePromise = loadStripe(`${import.meta.env.STRIPE_PK}`);
+const stripePromise = loadStripe("pk_test_51R12NLLlTwTInXM6IQazk2inqdBCCYD0xHJyNHCBsLGr4vphF79m0xGpWTjpBfxSBMka2tv0GHmj8onhIct7nMov00YCdMeDTD");
 
 const Payment = () => {
     const navigate = useNavigate();
