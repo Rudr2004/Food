@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPaymentIntent = void 0;
 const stripe_1 = __importDefault(require("stripe"));
-const stripe = new stripe_1.default("sk_test_51R12NLLlTwTInXM64IuGNw7322U6zYGtwunZwZrVn3InFGWAPJKdu5KHg7J8eV5oON8iLEN9kfU3CoOetp3RYjI900NL4wBZn5", {});
+const stripe = new stripe_1.default(process.env.STRIPE_SK, {});
 const createPaymentIntent = async (paymentMethodId, amount) => {
     try {
         console.log("Processing Payment for Amount:", amount);

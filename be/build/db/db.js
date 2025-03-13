@@ -7,7 +7,7 @@ exports.syncDB = exports.sequelize = void 0;
 const sequelize_1 = require("sequelize");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-exports.sequelize = new sequelize_1.Sequelize("zomato", "root", "Rudr@2025", {
+exports.sequelize = new sequelize_1.Sequelize("zomato", "root", process.env.DB_PASSWORD, {
     dialect: "mysql",
 });
 const User_1 = require("../model/User");

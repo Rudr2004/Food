@@ -20,7 +20,7 @@ export const signup = async (req: Request, res: Response) => {
         const newUser = await User.create({ name, email, password: hashedPassword });
 
         //create Token
-        const token = jwt.sign({id: newUser._id},"ddjkdjkddjakd",{
+        const token = jwt.sign({id: newUser._id},process.env.JWT_SECERTE,{
             expiresIn: "20d",
         })
 

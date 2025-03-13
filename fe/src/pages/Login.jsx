@@ -14,7 +14,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:2000/api/user/login", formData);
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}api/user/login`, formData);
             if (response.data.token) {
                 localStorage.setItem("token", response.data.token); // Save token in localStorage
                 toast.success("Logged in successfully!");

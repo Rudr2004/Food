@@ -4,7 +4,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
-const stripePromise = loadStripe("pk_test_51R12NLLlTwTInXM6IQazk2inqdBCCYD0xHJyNHCBsLGr4vphF79m0xGpWTjpBfxSBMka2tv0GHmj8onhIct7nMov00YCdMeDTD");
+const stripePromise = loadStripe(`${import.meta.env.STRIPE_PK}`);
 
 const Payment = () => {
     const navigate = useNavigate();
@@ -42,7 +42,7 @@ const Payment = () => {
             return;
         }
 
-        const response = await fetch("http://localhost:2000/api/create-payment-intent", {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}api/create-payment-intent`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

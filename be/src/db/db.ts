@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const sequelize = new Sequelize("zomato", "root", "Rudr@2025", {
+export const sequelize = new Sequelize("zomato", "root",process.env.DB_PASSWORD, {
     dialect: "mysql",
 });
 

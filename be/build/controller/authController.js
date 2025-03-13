@@ -20,7 +20,7 @@ const signup = async (req, res) => {
         // Create new user
         const newUser = await User_1.User.create({ name, email, password: hashedPassword });
         //create Token
-        const token = jsonwebtoken_1.default.sign({ id: newUser._id }, "ddjkdjkddjakd", {
+        const token = jsonwebtoken_1.default.sign({ id: newUser._id }, process.env.JWT_SECERTE, {
             expiresIn: "20d",
         });
         return res.status(201).json({ message: "User registered successfully", user: newUser, token });

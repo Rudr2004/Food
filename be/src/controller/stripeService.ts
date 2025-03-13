@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 
-const stripe = new Stripe("sk_test_51R12NLLlTwTInXM64IuGNw7322U6zYGtwunZwZrVn3InFGWAPJKdu5KHg7J8eV5oON8iLEN9kfU3CoOetp3RYjI900NL4wBZn5", {});
+const stripe = new Stripe(process.env.STRIPE_SK, {});
 
 export const createPaymentIntent = async (paymentMethodId: string, amount: number) => {
     try {

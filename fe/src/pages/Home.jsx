@@ -17,7 +17,7 @@ const Home = () => {
     useEffect(() => {
         const fetchFoods = async () => {
             try {
-                const response = await axios.get("http://localhost:2000/api/food/getFoods");
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}api/food/getFoods`);
                 if (response.status === 200) {
                     const allFoods = response.data;
                     setFoods(allFoods);

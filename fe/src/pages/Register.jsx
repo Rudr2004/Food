@@ -13,7 +13,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post("http://localhost:2000/api/user/signup", formData)
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}api/user/signup`, formData)
             if (response) {
                 //alert("Success")
                 toast.success("Registered")
