@@ -9,7 +9,7 @@ const List = () => {
     useEffect(() => {
         const fetchFoods = async () => {
             try {
-                const response = await axios.get("http://localhost:2000/api/food/getFoods");
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}api/food/getFoods`);
                 setFoods(response.data);
                 setLoading(false);
             } catch (err) {
