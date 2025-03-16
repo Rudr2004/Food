@@ -47,7 +47,7 @@ const Add = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:2000/api/food/addFood", foodData);
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}api/food/addFood`, foodData);
             if (response) toast.success("Food added successfully!");
         } catch {
             toast.error("Failed to add food");
